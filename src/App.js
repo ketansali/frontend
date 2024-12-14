@@ -1,24 +1,52 @@
-import logo from './logo.svg';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import './App.css';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import AppLayout from './pages/AppLayout';
+import { Product } from './pages/Product';
+import { Category } from './pages/Category';
+
+
 
 function App() {
+
+
+  const router = createBrowserRouter([
+    {
+      path: '/signin',
+      element: <SignIn/>
+    },
+    {
+      path: '/signup',
+      element: <SignUp/>
+    },
+    {
+      path: '/',
+      element: <AppLayout/>,
+      children:[
+        {
+          path: 'product',
+          element: <Product/>
+        },
+        {
+          path: 'category',
+          element: <Category/>
+        }
+      ]
+    }
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <ToastContainer />
+    <RouterProvider router={router}/>
+    </>
   );
 }
 
